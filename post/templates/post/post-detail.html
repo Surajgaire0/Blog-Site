@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="mt-5" style="color:Tomato;">{{posts.title}}</h1>
+<p>Published date: {{posts.publication_date}}</p>
+<p>Author: {{posts.author}}</p>
+<hr width="20%" align="left" color="black">
+<p class="lead">{{posts.description}}</p>
+
+<br>
+<a href="{% url 'post-update' posts.pk %}">Update</a>
+<br>
+<a href="{% url 'post-delete' posts.pk %}">Delete</a>
+<br>
+
+{% endblock content %}

@@ -1,0 +1,1 @@
+A simple Blog Site implemented using Django.
