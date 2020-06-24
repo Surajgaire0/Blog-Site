@@ -5,7 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class Posts(models.Model):
     title=models.CharField(max_length=100)
-    image=models.ImageField(default='default.jpg',upload_to='images/')
+    #image=models.ImageField(default='default.jpg',upload_to='images/')
     description=models.TextField()
     publication_date=models.DateTimeField(default=timezone.now)
     author=models.ForeignKey('auth.User',on_delete=models.CASCADE)
@@ -20,5 +20,7 @@ class Posts(models.Model):
         return self.description[:100]+'..'
 
     def pub_date(self):
-        pass
-        #return self.publication_date.strftime('')
+        return self.publication_date.strftime('%Y/%m/%d')
+
+    class Meta:
+        ordering=('-publication_date',)

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="jumbotron">
+<div class="jumbotron" style="background-color:rgb(88, 84, 84);">
     <h1>Welcome to Blog app</h1>
     <p class="lead">Create and read blog</p>
 </div>
@@ -9,7 +9,7 @@
 {% for post in posts_list %}
 
 <h1 class="mt-5" style="color:Tomato;"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></h1>
-<p>by {{post.publication_date}}</p>
+<p>by {{post.pub_date}}</p>
 <p>{{post.author}}</p>
 <p class="lead">{{post.summary}}</p>
 <hr align="left" color="black">

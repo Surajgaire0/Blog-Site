@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'crispy-forms',
+    #'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LOGIN_REDIRECT_URL='home'
-LOGOUT_REDIRECT_URL='login'
+LOGOUT_REDIRECT_URL='home'
 
 
 # Internationalization
