@@ -10,6 +10,7 @@ class HomeView(ListView):
     model=Posts
     template_name='post/home.html'
     context_object_name='posts_list'
+    paginate_by=4
 
 class PostDetailView(DetailView):
     model=Posts
