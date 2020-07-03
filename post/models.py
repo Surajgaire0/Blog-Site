@@ -17,7 +17,7 @@ class Posts(models.Model):
         return reverse('post-detail',args=[str(self.id)])
 
     def summary(self):
-        return self.description[:100]+'..'
+        return self.description[:500]+'..'
 
     def pub_date(self):
         return self.publication_date.strftime('%Y/%m/%d')
