@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Posts
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 # Create your views here.
 class HomeView(ListView):
@@ -16,11 +17,15 @@ class PostDetailView(DetailView):
     model=Posts
     template_name='post/post-detail.html'
 
-class PostCreateView(LoginRequiredMixin,CreateView):
+class PostCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model=Posts
     template_name='post/post-create.html'
     fields=['title','description']
     login_url=reverse_lazy('login')
+    success_message='Post created success.'
+
+    # def get_success_message(self):
+    #     return self.success_message
 
     def form_valid(self, form):
         form.instance.author=self.request.user

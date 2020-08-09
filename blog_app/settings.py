@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -153,6 +154,8 @@ DEFAULT_FROM_EMAIL=os.environ.get('EMAIL_USER')
 
 CRISPY_TEMPLATE_PACK='bootstrap4'
 
-DEFAULT_FROM_EMAIL='suraj.gaire@icloud.com'
+RECAPTCHA_PUBLIC_KEY='6LffcbwZAAAAAOv2inxu_CB9HjNnzonKRAp34_yG'
+RECAPTCH_PRIVATE_KEY='6LffcbwZAAAAAGyABv2jIMz8RDJZOFhmRWO4wK_9'
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 django_heroku.settings(locals())
