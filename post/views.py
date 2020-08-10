@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from .models import Posts
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.postgres.search import SearchQuery, SearchRank,SearchVector
+from django.db.models import Q
 
 # Create your views here.
 class HomeView(ListView):
@@ -50,3 +52,24 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     def test_func(self):
         obj=self.get_object()
         return obj.author==self.request.user
+
+class PostSearchView(ListView):
+    model=Posts
+    template_name='post/post-search.html'
+    context_object_name='posts_list'
+    paginate_by=4
+
+    def get_queryset(self):
+        query=self.request.GET['query']
+        search_vector=SearchVector('title',weight='A')+SearchVector('description',weight='B')+SearchVector('author',weight='C')
+        search_query=SearchQuery(query)
+        
+        return Posts.objects.annotate(search=search_query,rank=SearchRank(search_vector,search_query)).filter(Q(search=search_query)&Q(rank__gt=0.1)).order_by('-rank')
+
+    def get_context_data(self,**kwargs):
+        ctx=super(PostSearchView,self).get_context_data(**kwargs) #ctx has posts_lists,...
+        query=self.request.GET['query']
+        ctx['search_query']=query #ctx now has search_query, posts_lists,...
+        #print (ctx)
+        return ctx
+
