@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 from .views import (
     HomeView,
     PostDetailView,
@@ -30,4 +30,5 @@ urlpatterns = [
     path('post/<int:pk>/edit/',PostUpdateView.as_view(),name='post-update'),
     path('post/<int:pk>/delete/',PostDeleteView.as_view(),name='post-delete'),
     path('post/search/',PostSearchView.as_view(),name='post-search'),
+    path('comments/',include('django_comments.urls')),
 ]

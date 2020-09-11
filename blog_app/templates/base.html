@@ -4,6 +4,11 @@
 <head>
     <meta charset="utf-8">
     <title>Django Blog</title>
+    {% comment %}
+    <!-- <link rel='shortcut icon' type='image/png' href="{% static 'favicon.ico' %}"/> -->
+    {% endcomment %}
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <!-- Semantic UI CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.css"/>
@@ -92,6 +97,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+ 
+        {% block script %}
+
+        {% endblock script%}
 </body>
 
 </html>

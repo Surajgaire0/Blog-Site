@@ -1,17 +1,109 @@
 {% extends 'base.html' %}
+{% load comments %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<h1 class="mt-5" style="color:Tomato;">{{posts.title}}</h1>
-<p>Published date: {{posts.publication_date}}</p>
-<p>Author: {{posts.author}}</p>
-<hr width="20%" align="left" color="black">
-<p class="lead">{{posts.description}}</p>
+<div class="card" style="background-color:rgb(211, 207, 207);">
+  <div class="card-body">
+    <h5 class="card-title">
+      <h1 class="mt-5" style="color:Tomato;">{{posts.title|capfirst}}</h1>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <p>Published date: {{posts.publication_date}}
+      <br>
+      Author: {{posts.author}}</p>
+    </h6>
+    <hr width="20%" align="left" color="black">
+    <p class="lead">{{posts.description}}</p>
 
-<br>
-<a href="{% url 'post-update' posts.pk %}">Update</a>
-<br>
-<a href="{% url 'post-delete' posts.pk %}">Delete</a>
-<br>
+    <br>
+    {% if is_owner %}
+    <a href="{% url 'post-update' posts.pk %}">Update</a>
+    |
+    <a href="{% url 'post-delete' posts.pk %}">Delete</a>
+    <br>
+    {% endif %}
+
+    <!--Comment-->
+    {% get_comment_count for posts as comment_count %}
+
+    {% get_comment_list for posts as comment_list %}
+
+    <div class="ui small comments">
+      <h3 class="ui dividing header">{{comment_count}} comment{{comment_count|pluralize}}</h3>
+      {% for comment in comment_list %}
+      <div class="comment">
+        <a class="avatar">
+          <img src="/images/avatar/small/matt.jpg">
+        </a>
+        <div class="content">
+          <a class="author">{{comment.user.username}}</a>
+          <div class="metadata">
+            <span class="date">{{comment.submit_date}}</span>
+          </div>
+          <div class="text">
+            {{comment.comment}}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      {% get_comment_form for posts as form %}
+      <form class="ui reply form" action="{% comment_form_target %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'post-detail' posts.pk %}" />
+        {% for field in form %}
+        {% if field.name == "name" %}
+            <input id="id_name" type="hidden" name="name" value="{{ user.username }}" />
+        {% elif field.name == "email" %}
+            <input type="hidden" name="email" value="a@a.com" id="id_email" />
+        {% elif field.name == "url" %}
+            <input type="hidden" name="url" value="" id="id_url" />
+        {% elif field.name == "honeypot" %}
+            <input type="hidden" name="honeypot" value="" id="id_honeypot" />
+        {% endif %}
+        {% if field.is_hidden %}
+                <div>{{ field }}</div>
+            {% endif %}
+        {% endfor %}
+            <div class="field">
+              <textarea name='comment' style="width: 400px; height: 75px;" rows='10' id='comment'></textarea>
+            </div>
+
+            {% if user.is_authenticated %}
+              <button class="ui inverted black button" name='submit' id='authenticated_cmt_btn' disabled style="background-color:rgb(13, 14, 14);">Post Comment</button>  
+            {% else %}
+              <button class="ui inverted black button" name='submit' id='unauthenticated_cmt_btn' disabled style="background-color:rgb(13, 14, 14);">Post Comment</button> 
+              <p>
+                <a href="{% url 'login' %}">Sign in to comment</a>
+              </p>
+            {% endif %}
+      </form>
+    </div>  
+
+  </div>
+</div>
 
 {% endblock content %}
+
+{% block script %}
+
+  <script>
+  $(function () {
+    $('#comment').keyup((e)=>{
+      if ($('#comment').val()==''){
+        $('#authenticated_cmt_btn').prop('disabled',true);
+      }
+      else {
+        $('#authenticated_cmt_btn').prop('disabled',false);
+      }
+    });
+  });    
+  </script>
+
+{% endblock script %}
+
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  Tooltip on bottom
+</button>

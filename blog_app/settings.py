@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'captcha',
+    'django_comments',
+    'django.contrib.sites'
 ]
+
+SITE_ID=1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,6 +142,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT= os.path.join(BASE_DIR,'static')
+STATICFILES_DIR= [
+    os.path.join(BASE_DIR,'blog_app/static')
+]
 
 #Media files
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')

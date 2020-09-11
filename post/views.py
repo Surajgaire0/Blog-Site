@@ -19,6 +19,11 @@ class PostDetailView(DetailView):
     model=Posts
     template_name='post/post-detail.html'
 
+    def get_context_data(self,**kwargs):
+        ctx=super().get_context_data(**kwargs)
+        ctx['is_owner']=self.request.user==self.get_object().author
+        return ctx
+
 class PostCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model=Posts
     template_name='post/post-create.html'
@@ -63,7 +68,6 @@ class PostSearchView(ListView):
         query=self.request.GET['query']
         search_vector=SearchVector('title',weight='A')+SearchVector('description',weight='B')+SearchVector('author',weight='C')
         search_query=SearchQuery(query)
-        
         return Posts.objects.annotate(search=search_query,rank=SearchRank(search_vector,search_query)).filter(Q(search=search_query)&Q(rank__gt=0.1)).order_by('-rank')
 
     def get_context_data(self,**kwargs):
