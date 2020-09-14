@@ -15,7 +15,7 @@
       by {{post.author}}</p>
   </div>
   <div class="card-body" style="background-color:rgb(180, 179, 179);">
-    <p class="card-text">{{post.summary}}</p>
+    <p class="card-text">{{post.summary|safe}}</p>
   </div>
 </div>
 {% endfor %}

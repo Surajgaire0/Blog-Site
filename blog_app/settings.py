@@ -43,10 +43,14 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'django_comments',
-    'django.contrib.sites'
+    'django.contrib.sites',
+    'django_summernote',
+    'import_export'
 ]
 
 SITE_ID=1
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,9 +96,9 @@ WSGI_APPLICATION = 'blog_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogsitedb',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': os.environ.get('BLOG_DATABASE_NAME'),
+        'USER': os.environ.get('BLOG_DATABASE_USER'),
+        'PASSWORD': os.environ.get('BLOG_DATABASE_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -121,6 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_REDIRECT_URL='home'
 LOGOUT_REDIRECT_URL='home'
+LOGIN_URL='login'
 
 
 # Internationalization
@@ -128,7 +133,7 @@ LOGOUT_REDIRECT_URL='home'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -142,7 +147,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT= os.path.join(BASE_DIR,'static')
-STATICFILES_DIR= [
+STATICFILES_DIRS= [
     os.path.join(BASE_DIR,'blog_app/static')
 ]
 

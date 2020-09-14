@@ -1,5 +1,13 @@
 from django.contrib import admin
 from .models import Posts
+from import_export.admin import ImportExportModelAdmin
+from django_summernote.admin import SummernoteModelAdmin
+from .forms import PostsForm
 
 # Register your models here.
-admin.site.register(Posts)
+class PostsAdmin(SummernoteModelAdmin,ImportExportModelAdmin):
+    models=Posts
+    list_display=('title','publication_date','author')
+    summernote_fields = ('description',)
+
+admin.site.register(Posts, PostsAdmin)

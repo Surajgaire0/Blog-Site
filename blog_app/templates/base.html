@@ -1,12 +1,11 @@
 <!doctype html>
+{% load static %}
 <html lang="en" class="h-100">
 
 <head>
     <meta charset="utf-8">
     <title>Django Blog</title>
-    {% comment %}
-    <!-- <link rel='shortcut icon' type='image/png' href="{% static 'favicon.ico' %}"/> -->
-    {% endcomment %}
+    <link rel='shortcut icon' type='image/png' href="{% static 'images/favicon.ico' %}"/>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -17,6 +16,9 @@
 </head>
 
 <body class="d-flex flex-column h-100" style="background-color:rgb(145, 141, 141);">
+    <!--Javascript SDK for Facebook like-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=327595688411201&autoLogAppEvents=1" nonce="atggNsgi"></script>
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -52,8 +54,8 @@
                                     <!-- form -->
                                     <div class='float-right'>
                                         <form method='GET' action="{% url 'post-search' %}" class='input-group'>
-                                            <input class="form-control-sm my-0 py-1" type="text" placeholder="Search" aria-label="Search" name='query'>
-                                            <button type='submit'>Search</button>
+                                            <input class="form-control-sm my-0 py-1" type="text" placeholder="Search" aria-label="Search" name='query' id='search-text'>
+                                            <button id='search-button' type='submit' disabled>Search</button>
                                         </form>
                                     </div>
             </div>
@@ -97,6 +99,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    
+        <script type='text/javascript' src="{% static 'js/main.js' %}"></script>
  
         {% block script %}
 

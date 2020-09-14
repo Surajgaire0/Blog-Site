@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.postgres.search import SearchQuery, SearchRank,SearchVector
 from django.db.models import Q
+from .forms import PostsForm
 
 # Create your views here.
 class HomeView(ListView):
@@ -26,8 +27,9 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
     model=Posts
+    form_class=PostsForm
     template_name='post/post-create.html'
-    fields=['title','description']
+    #fields=['title','description']
     login_url=reverse_lazy('login')
     success_message='Post created success.'
 
@@ -40,8 +42,9 @@ class PostCreateView(LoginRequiredMixin,SuccessMessageMixin,CreateView):
 
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model=Posts
+    form_class=PostsForm
     template_name='post/post-update.html'
-    fields=['title','description']
+    #fields=['title','description']
     login_url=reverse_lazy('login')
 
     def test_func(self):

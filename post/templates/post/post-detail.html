@@ -14,8 +14,11 @@
       <br>
       Author: {{posts.author}}</p>
     </h6>
+
+    <!--Facebook Like-->
+    <div class="fb-like" data-href="http://localhost:8000/post/{{posts.id}}" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
     <hr width="20%" align="left" color="black">
-    <p class="lead">{{posts.description}}</p>
+    <p class="lead">{{posts.description|safe}}</p>
 
     <br>
     {% if is_owner %}
@@ -92,7 +95,7 @@
   <script>
   $(function () {
     $('#comment').keyup((e)=>{
-      if ($('#comment').val()==''){
+      if ($('#comment').val().trim()==''){
         $('#authenticated_cmt_btn').prop('disabled',true);
       }
       else {
