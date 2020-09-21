@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'django_comments',
     'django.contrib.sites',
     'django_summernote',
-    'import_export'
+    'import_export',
+    'cloudinary',
 ]
 
 SITE_ID=1
@@ -169,5 +171,11 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 RECAPTCHA_PUBLIC_KEY='6LffcbwZAAAAAOv2inxu_CB9HjNnzonKRAp34_yG'
 RECAPTCH_PRIVATE_KEY='6LffcbwZAAAAAGyABv2jIMz8RDJZOFhmRWO4wK_9'
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+
+cloudinary.config(
+    cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key = os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret = os.environ.get('CLOUDINARY_SECRET_KEY')
+)
 
 django_heroku.settings(locals())

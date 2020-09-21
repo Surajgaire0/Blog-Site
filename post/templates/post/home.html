@@ -7,15 +7,15 @@
 </div>
 
 {% for post in posts_list %}
-<div class="card bg-light mb-3">
+<div class="card bg-light mb-3 mt-1">
   <div class="card-header" style="background-color:rgb(180, 179, 179);">
     <h3 class="mt-1" style="color:Tomato;"><a href="{% url 'post-detail' post.id %}">{{post.title|capfirst}}</a></h3>
-    <p>Published on {{post.pub_date}}
+    <p>Published on {{post.publication_date|date:'Y-m-d'}}
       <br>
       by {{post.author}}</p>
   </div>
   <div class="card-body" style="background-color:rgb(180, 179, 179);">
-    <p class="card-text">{{post.summary|safe}}</p>
+    <p class="card-text">{{post.description|truncatechars_html:500|safe}}</p>
   </div>
 </div>
 {% endfor %}

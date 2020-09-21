@@ -15,14 +15,6 @@ class Posts(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail',args=[str(self.id)])
 
-    @property
-    def summary(self):
-        return self.description[:500]+'..'
-
-    @property
-    def pub_date(self):
-        return self.publication_date.strftime('%Y/%m/%d')
-
     class Meta:
         ordering=('-publication_date',)
         verbose_name_plural='posts'

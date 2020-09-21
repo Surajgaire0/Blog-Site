@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class='row' style="background-color:rgb(211, 207, 207);">
+  <div class='col-md-5'>
+    <div class="card" style="background-color:rgb(211, 207, 207);">
+      <div class="card-body">
+        <h5 class="card-title">
+          <h1 class="mt-5" style="color:Tomato;">{{user.username}}</h1>
+        </h5>
+  
+        <img class="card-img-top" src='{{user.profile.profile_picture.url}}' alt="profile_picture" style="width: 300px;">
+  
+        <p><h3>Name: {{user.first_name}} {{user.last_name}}</h3></p>
+        
+        <p><h3>Website: {{user.profile.website}} </h3></p>
+        <br>
+        <a href="{% url 'profile-update' %}">Update Profile</a>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-md-7'>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h4>My blogs</h4>
+      </div>
+      <ul class="list-group list-group-flush"></ul>
+      {% for post in posts %}
+        <li class="list-group-item"><a href="{% url 'post-detail' post.pk %}">{{post.title|title}}</a></li>
+        {% empty %}
+        <li class="list-group-item">You don't have blogs.</li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endif %}
+  
+{% endblock content %}

@@ -38,7 +38,7 @@
       {% for comment in comment_list %}
       <div class="comment">
         <a class="avatar">
-          <img src="/images/avatar/small/matt.jpg">
+          <img src="{{comment.user.profile.profile_picture.url}}">
         </a>
         <div class="content">
           <a class="author">{{comment.user.username}}</a>
@@ -106,7 +106,3 @@
   </script>
 
 {% endblock script %}
-
-<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
-  Tooltip on bottom
-</button>

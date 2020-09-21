@@ -26,7 +26,7 @@ urlpatterns = [
     path('',include('post.urls')),
     path('summernote/', include('django_summernote.urls')),
     #path('accounts/password_reset/',views.PasswordResetView.as_view(),name='password_reset'),
-] 
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

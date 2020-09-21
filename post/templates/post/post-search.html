@@ -7,12 +7,12 @@
 
 {% for post in posts_list %}
 
-<h1 class="mt-5" style="color:Tomato;"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></h1>
-<p>{{post.pub_date}}</p>
-<p>by {{post.author}}</p>
-<p class="lead">{{post.summary}}</p>
-<hr align="left" color="black">
-<br>
+  <h1 class="mt-5" style="color:Tomato;"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></h1>
+  <p>{{post.publication_date|date:'Y-m-d'}}</p>
+  <p>by {{post.author}}</p>
+  <p class="lead">{{post.description|truncatechars_html:500|safe}}</p>
+  <hr align="left" color="black">
+  <br>
 {% endfor %}
 
 {% if is_paginated %}
