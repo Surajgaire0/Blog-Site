@@ -4,7 +4,7 @@
 - Authenticated users can create blogs.
 - Authenticated users can view their own profile.
 - Authenticated users can post comments.
-- Facebook like and comment integrated.
+- Facebook like and share integrated.
 - Users can search for blogs using search form.
 
 ---
